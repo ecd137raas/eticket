@@ -58,7 +58,6 @@ module.exports = function(application){
 				var db = client.db();
 				db.collection('usuarios').find({email: req.session.email}).toArray(function(err, result){
 					res.render('user', {usuarios: result})
-					console.log(result)
 					client.close();
 				});
 
@@ -137,7 +136,6 @@ module.exports = function(application){
 		var client = new application.config.dbConnection;
 		client.connect(function(err, client) {
 			var db = client.db();
-			console.log(dadosForm)
 			db.collection('controle').insert(dadosForm);
 			client.close();
 		});
