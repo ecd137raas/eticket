@@ -43,11 +43,11 @@ module.exports = function(application){
 	});
 
 	application.get('/ticket', function(req, res){
-		res.render('add-ticket')
+		res.render('add-ticket', {user: req.session.email})
 	});
 
 	application.get('/edit-ticket', function(req, res){
-		res.render('edit-ticket')
+		res.render('edit-ticket');	
 	});
 
 
@@ -128,11 +128,10 @@ module.exports = function(application){
 /* tickets criar e listar */
 	application.post('/criarticket', function(req, res) {
 		var dadosForm = req.body;
-		dadosForm.usuario=req.session.email;
 		dadosForm.resposta='';
 		dadosForm.severidade='';
 		dadosForm.data= new Date();
-		dadosForm.dataresposta=new Date();
+		dadosForm.dataresposta= new Date();
 		var client = new application.config.dbConnection;
 		client.connect(function(err, client) {
 			var db = client.db();
@@ -142,7 +141,6 @@ module.exports = function(application){
 
 		res.redirect('/listar-ticket');
 	});
-
 
 	application.get('/listar-ticket', function(req, res){
 		var client = new application.config.dbConnection;
@@ -192,9 +190,9 @@ module.exports = function(application){
 				client.close();
 				});
 				res.redirect('/listar-ticket');
-		});
+	});
 
-		application.get('/remover-ticket', function(req, res){
+	application.get('/remover-ticket', function(req, res){
 			var url_query = req.query;
 			var id = url_query.id_ticket;
 			var client = new application.config.dbConnection;
@@ -204,5 +202,5 @@ module.exports = function(application){
 					client.close();
 					});
 					res.redirect('/listar-ticket');
-			});
+	});
 }

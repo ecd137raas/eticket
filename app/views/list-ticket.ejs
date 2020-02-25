@@ -141,12 +141,22 @@
             <div class="card-header py-3">
              
             <div class="card-body">
+              
               <div class="table-responsive">
+                <nav class="navbar navbar-light bg-light">
+                  <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                  </form>
+                </nav>
                 <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                     <thead>
                       <tr>
                         <th>
                           Status
+                        </th>
+                        <th>
+                          Severidade
                         </th>
                         <th>
                           Assunto
@@ -163,7 +173,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <% for(var i = 0; i < tickets.length; i++) { %>
+                      <% for(var i in tickets) { %>
                         <tr>
                           <td>
                             <% if(tickets[i].status=='Aberto'){%>
@@ -174,6 +184,17 @@
                             <%}%>
                             <% if(tickets[i].status=='Fechado'){%>
                               <h5><span class="badge badge-success"><%=tickets[i].status%></span></h5>
+                            <%}%>
+                          </td>
+                          <td>
+                            <% if(tickets[i].severidade=='Baixo'){%>
+                              <h5><span class="badge badge-info"><%=tickets[i].severidade%></span></h5>
+                            <%}%>
+                            <% if(tickets[i].severidade=='Medio'){%>
+                              <h5><span class="badge badge-secondary"><%=tickets[i].severidade%></span></h5>
+                            <%}%>
+                            <% if(tickets[i].severidade=='Alto'){%>
+                              <h5><span class="badge badge-danger"><%=tickets[i].severidade%></span></h5>
                             <%}%>
                           </td>
                           <td>
@@ -194,6 +215,7 @@
 
                     </tbody>
                 </table>
+              
               </div>
             </div>
           </div>
