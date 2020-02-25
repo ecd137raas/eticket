@@ -207,8 +207,10 @@
                             <%=tickets[i].data.toISOString().substr(0, 10).split('-').reverse().join('/')%>
                           </td>
                           <td>
-                          <a class="btn btn-outline-warning btn-sm" href="/listar-ticket-id?id_ticket=<%=tickets[i]._id%>" role="button">Editar</a>
-                          <a class="btn btn-outline-danger btn-sm" href="/remover-ticket?id_ticket=<%=tickets[i]._id%>" role="button">Excluir</a>
+                          <%if(tickets[i].status!='Fechado'){%>
+                            <a class="btn btn-outline-warning btn-sm" href="/listar-ticket-id?id_ticket=<%=tickets[i]._id%>" role="button" readonly>Editar</a>
+                            <a class="btn btn-outline-danger btn-sm" href="/remover-ticket?id_ticket=<%=tickets[i]._id%>" role="button" readonly>Excluir</a>
+                          <%}%>
                           </td>
                         </tr>
                         <% } %>
