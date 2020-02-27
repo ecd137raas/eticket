@@ -98,6 +98,7 @@
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button>
+          <h4>Listagem de chamados</h4>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -138,15 +139,24 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Listagem de Tickets</h6>
-            </div>
+             
             <div class="card-body">
+              
               <div class="table-responsive">
+                <nav class="navbar navbar-light bg-light">
+                  <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                  </form>
+                </nav>
                 <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                     <thead>
                       <tr>
                         <th>
                           Status
+                        </th>
+                        <th>
+                          Severidade
                         </th>
                         <th>
                           Assunto
@@ -163,7 +173,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <% for(var i = 0; i < tickets.length; i++) { %>
+                      <% for(var i in tickets) { %>
                         <tr>
                           <td>
                             <% if(tickets[i].status=='Aberto'){%>
@@ -177,6 +187,17 @@
                             <%}%>
                           </td>
                           <td>
+                            <% if(tickets[i].severidade=='Baixo'){%>
+                              <h5><span class="badge badge-info"><%=tickets[i].severidade%></span></h5>
+                            <%}%>
+                            <% if(tickets[i].severidade=='Medio'){%>
+                              <h5><span class="badge badge-secondary"><%=tickets[i].severidade%></span></h5>
+                            <%}%>
+                            <% if(tickets[i].severidade=='Alto'){%>
+                              <h5><span class="badge badge-danger"><%=tickets[i].severidade%></span></h5>
+                            <%}%>
+                          </td>
+                          <td>
                             <%=tickets[i].assunto%>
                           </td>
                           <td>
@@ -186,14 +207,17 @@
                             <%=tickets[i].data.toISOString().substr(0, 10).split('-').reverse().join('/')%>
                           </td>
                           <td>
-                          <a class="btn btn-outline-warning btn-sm" href="/listar-ticket-id?id_ticket=<%=tickets[i]._id%>" role="button">Editar</a>
-                          <a class="btn btn-outline-danger btn-sm" href="/remover-ticket?id_ticket=<%=tickets[i]._id%>" role="button">Excluir</a>
+                          <%if(tickets[i].status!='Fechado'){%>
+                            <a class="btn btn-outline-warning btn-sm" href="/listar-ticket-id?id_ticket=<%=tickets[i]._id%>" role="button" readonly>Editar</a>
+                            <a class="btn btn-outline-danger btn-sm" href="/remover-ticket?id_ticket=<%=tickets[i]._id%>" role="button" readonly>Excluir</a>
+                          <%}%>
                           </td>
                         </tr>
                         <% } %>
 
                     </tbody>
                 </table>
+              
               </div>
             </div>
           </div>

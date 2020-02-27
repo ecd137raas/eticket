@@ -1,5 +1,6 @@
 /* importar o módulo do framework express */
 var express = require('express');
+var dashboard = require("nodejs-dashboard");
 
 /* importar o módulo do consign */
 var consign = require('consign');
@@ -34,7 +35,7 @@ app.use(expressSession({
 
 /* efetua o autoload das rotas, dos models e dos controllers para o objeto app */
 consign()
-	.include('app/routes')
+	.include('/app/routes')
 	.then('config/dbConnection.js')
 	.into(app);
 
