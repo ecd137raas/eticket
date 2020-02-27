@@ -1,5 +1,6 @@
 /* importar o módulo do framework express */
 var express = require('express');
+var dashboard = require("nodejs-dashboard");
 
 /* importar o módulo do consign */
 var consign = require('consign');
