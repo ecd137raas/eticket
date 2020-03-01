@@ -186,9 +186,21 @@
                           <div class="form-group">
                             <label for="severidade">Severidade</label>
                             <select class="form-control" id="severidade" name="severidade">
-                              <option value="Alto">Alto</option>
-                              <option value="Medio">Médio</option>
-                              <option value="Baixo" selected="active">Baixo</option>
+                              <%if(tickets[0].severidade=='Alto'){%>
+                                <option value="Alto" selected="active">Alto</option>
+                              <%} else {%>
+                                <%if(tickets[0].severidade=='Medio'){%>
+                                  <option value="Medio" selected="active">Médio</option>
+                                <%} else {%>
+                                  <%if(tickets[0].severidade=='Baixo'){%>
+                                    <option value="Baixo" selected="active">Baixo</option>
+                                  <%} else {%>
+                                    <option value="Alto">Alto</option>
+                                    <option value="Medio">Médio</option>
+                                    <option value="Baixo" selected="active">Baixo</option>
+                                    <%}%>
+                                  <%}%>
+                              <%}%>
                             </select>
                           </div>
                         </div>
