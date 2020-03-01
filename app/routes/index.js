@@ -2,6 +2,10 @@ var ObjectID = require('mongodb').ObjectId;
 
 module.exports = function(application){
 
+	application.get('/', function(req, res){
+		res.render('login');
+	});
+
 	application.get('/home', function(req, res){
 		var client = new application.config.dbConnection;
 		client.connect(function(err, client){
@@ -32,26 +36,13 @@ module.exports = function(application){
 						res.render('dashboard', {user: req.session.nome, qtd: qtd_tot, open: qta, doing: qtb, done: qtc});
 					});
 				});
-		});
-
-	application.get('/', function(req, res){
-		res.render('login');
 	});
 
+	/*usuários do sistema */
 	application.get('/registrar', function(req, res){
 		res.render('register');
 	});
 
-	application.get('/ticket', function(req, res){
-		res.render('add-ticket', {user: req.session.email})
-	});
-
-	application.get('/edit-ticket', function(req, res){
-		res.render('edit-ticket');	
-	});
-
-
-    /*usuários do sistema */
 	application.get('/profile', function(req, res){
 		var client = new application.config.dbConnection;
 		client.connect(function(err, client){
@@ -88,7 +79,7 @@ module.exports = function(application){
 				client.close();
 				});
 				res.redirect('/home');
-		});
+	});
 
 	application.post('/registrar', function(req, res) {
 		var dadosForm = req.body;
@@ -126,6 +117,14 @@ module.exports = function(application){
 		});
 	});
 /* tickets criar e listar */
+	application.get('/ticket', function(req, res){
+		res.render('add-ticket', {user: req.session.email})
+	});
+
+	application.get('/edit-ticket', function(req, res){
+		res.render('edit-ticket');	
+	});
+
 	application.post('/criarticket', function(req, res) {
 		var dadosForm = req.body;
 		dadosForm.resposta='';
