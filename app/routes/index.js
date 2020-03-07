@@ -109,7 +109,8 @@ module.exports = function(application){
 					req.session.nome=result[0].nome;
 					res.redirect('/home');
 				}else{
-					res.redirect('/login');
+					var msg = "Usuário não encontrado";
+					res.render('login', {msg: msg});
 				}
 				client.close();
 			});
