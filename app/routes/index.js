@@ -84,11 +84,6 @@ module.exports = function(application){
 	application.post('/registrar', function(req, res) {
 		var dadosForm = req.body;
 		var client = new application.config.dbConnection;
-		dadosForm.endereco = '';
-		dadosForm.cidade = '';
-		dadosForm.pais = '';
-		dadosForm.cep = '';
-		dadosForm.departamento = '';
 		client.connect(function(err, client) {
 			var db = client.db();
 			db.collection('usuarios').insert(dadosForm);
